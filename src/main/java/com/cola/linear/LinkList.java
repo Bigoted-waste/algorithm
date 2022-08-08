@@ -148,6 +148,37 @@ public class LinkList<T> implements Iterable<T> {
         return -1;
     }
 
+    /**
+     * 反转链表
+     */
+    public void reverse(){
+        if (N == 0){
+            return;
+        }
+        reverse(head.next);
+    }
+
+    /**
+     *
+     * @param curr 当前遍历的节点
+     * @return 反转后当前节点上一个节点
+     */
+    public Node reverse(Node curr){
+        // 已经到最后一个元素
+        if (curr.next==null){
+            // 反转后，头节点应该指向原链表中的最后一个元素
+            head.next=curr;
+            return curr;
+        }
+
+        // 当前节点的上一个节点
+        Node pre = reverse(curr.next);
+        pre.next = curr;
+        // 当前节点的下一个节点设为null
+        curr.next =null;
+        return curr;
+    }
+
 
     @Override
     public Iterator<T> iterator() {
@@ -198,6 +229,12 @@ class LinkListTest{
         list.insert(2,"杜兰特");
         list.insert(3,"库里");
 
+        for (String s : list) {
+            System.out.print(s+" ");
+        }
+        System.out.println();
+        System.out.print("反转后的链表：");
+        list.reverse();
         for (String s : list) {
             System.out.print(s+" ");
         }
